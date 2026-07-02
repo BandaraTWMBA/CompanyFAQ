@@ -1,0 +1,304 @@
+
+[
+  {
+    "question": "What are your working hours?",
+    "answer": "Our operational hours are from 9 AM to 6 PM, Monday through Friday, during which customer support is also active.",
+    "ground_truth": "Monday to Friday from 9 AM to 6 PM.",
+    "contexts": ["We operate Monday to Friday from 9 AM to 6 PM. Customer support is available during these hours."]
+  },
+  {
+    "question": "When is customer support available?",
+    "answer": "Customer support is accessible Monday to Friday, between 9 AM and 6 PM.",
+    "ground_truth": "Monday to Friday from 9 AM to 6 PM.",
+    "contexts": ["We operate Monday to Friday from 9 AM to 6 PM. Customer support is available during these hours."]
+  },
+  {
+    "question": "Are you open on weekends?",
+    "answer": "No, the company operates strictly from Monday to Friday.",
+    "ground_truth": "We operate Monday to Friday from 9 AM to 6 PM.",
+    "contexts": ["We operate Monday to Friday from 9 AM to 6 PM. Customer support is available during these hours."]
+  },
+  {
+    "question": "Where is the company located?",
+    "answer": "The company headquarters is located in Colombo, Sri Lanka.",
+    "ground_truth": "Colombo, Sri Lanka",
+    "contexts": ["Our headquarters is located in Colombo, Sri Lanka. We also have remote employees working from different locations."]
+  },
+  {
+    "question": "Where is the company headquarters?",
+    "answer": "The main corporate headquarters can be found in Colombo, Sri Lanka.",
+    "ground_truth": "Colombo, Sri Lanka",
+    "contexts": ["Our headquarters is located in Colombo, Sri Lanka."]
+  },
+  {
+    "question": "Does the company have remote workers?",
+    "answer": "Yes, there are remote staff members operating from various geographical locations.",
+    "ground_truth": "We also have remote employees working from different locations.",
+    "contexts": ["Our headquarters is located in Colombo, Sri Lanka. We also have remote employees working from different locations."]
+  },
+  {
+    "question": "Do you offer internships?",
+    "answer": "Yes, internships are available across various domains like Software Engineering and AI.",
+    "ground_truth": "Yes. We offer internships in Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, and UI/UX design.",
+    "contexts": ["We offer internships in Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, and UI/UX design."]
+  },
+  {
+    "question": "What kind of internship fields do you have?",
+    "answer": "Internship programs are available in fields such as Software Engineering, AI, DevOps, Quality Assurance, and UI/UX design.",
+    "ground_truth": "Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, and UI/UX design.",
+    "contexts": ["We offer internships in Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, and UI/UX design."]
+  },
+  {
+    "question": "Is there a UI/UX design internship program?",
+    "answer": "Yes, UI/UX design is one of the specific departments offering internship tracks.",
+    "ground_truth": "We offer internships in Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, and UI/UX design.",
+    "contexts": ["We offer internships in Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, and UI/UX design."]
+  },
+  {
+    "question": "How long do internships last?",
+    "answer": "The internship positions typically run for a period of 6 months.",
+    "ground_truth": "Our internship programs usually last for 6 months. The duration may vary depending on the department and project requirements.",
+    "contexts": ["Our internship programs usually last for 6 months. The duration may vary depending on the department and project requirements."]
+  },
+  {
+    "question": "Can the duration of an internship change?",
+    "answer": "Yes, the length of the program can vary based on specific project needs or the department.",
+    "ground_truth": "The duration may vary depending on the department and project requirements.",
+    "contexts": ["Our internship programs usually last for 6 months. The duration may vary depending on the department and project requirements."]
+  },
+  {
+    "question": "What is the typical timeframe for your internships?",
+    "answer": "They generally span 6 months long.",
+    "ground_truth": "Our internship programs usually last for 6 months.",
+    "contexts": ["Our internship programs usually last for 6 months."]
+  },
+  {
+    "question": "What are the requirements for internships?",
+    "answer": "Candidates need foundational programming skills, analytical problem-solving abilities, and a drive to pick up new tech.",
+    "ground_truth": "Applicants should have basic programming knowledge, problem-solving skills, and an interest in learning modern technologies.",
+    "contexts": ["Applicants should have basic programming knowledge, problem-solving skills, and an interest in learning modern technologies."]
+  },
+  {
+    "question": "Do I need coding skills to apply for an internship?",
+    "answer": "Yes, applicants are expected to have basic programming knowledge.",
+    "ground_truth": "Applicants should have basic programming knowledge, problem-solving skills, and an interest in learning modern technologies.",
+    "contexts": ["Applicants should have basic programming knowledge, problem-solving skills, and an interest in learning modern technologies."]
+  },
+  {
+    "question": "What kind of mindset is expected from internship applicants?",
+    "answer": "You should demonstrate an interest in learning modern technologies and possess strong problem-solving skills.",
+    "ground_truth": "problem-solving skills, and an interest in learning modern technologies.",
+    "contexts": ["Applicants should have basic programming knowledge, problem-solving skills, and an interest in learning modern technologies."]
+  },
+  {
+    "question": "How can I contact support?",
+    "answer": "You can reach out to customer assistance by sending an email to support@company.com.",
+    "ground_truth": "You can contact our support team by sending an email to support@company.com.",
+    "contexts": ["You can contact our support team by sending an email to support@company.com."]
+  },
+  {
+    "question": "What is the support email address?",
+    "answer": "The official helpdesk email address is support@company.com.",
+    "ground_truth": "support@company.com",
+    "contexts": ["You can contact our support team by sending an email to support@company.com."]
+  },
+  {
+    "question": "Where should I send an email if I need technical assistance?",
+    "answer": "Please deliver all support communications directly to support@company.com.",
+    "ground_truth": "You can contact our support team by sending an email to support@company.com.",
+    "contexts": ["You can contact our support team by sending an email to support@company.com."]
+  },
+  {
+    "question": "What is the support response time?",
+    "answer": "The customer care team typically provides a reply within 24 working hours.",
+    "ground_truth": "The support team usually responds within 24 working hours.",
+    "contexts": ["The support team usually responds within 24 working hours."]
+  },
+  {
+    "question": "How long does it take for support to reply?",
+    "answer": "The response window from the helpdesk team is normally 24 business hours.",
+    "ground_truth": "The support team usually responds within 24 working hours.",
+    "contexts": ["The support team usually responds within 24 working hours."]
+  },
+  {
+    "question": "Will support answer my query within a day?",
+    "answer": "Yes, they typically get back to you within 24 operational hours.",
+    "ground_truth": "The support team usually responds within 24 working hours.",
+    "contexts": ["The support team usually responds within 24 working hours."]
+  },
+  {
+    "question": "Can employees work remotely?",
+    "answer": "Yes, the company accommodates hybrid work structures based on the particular demands of projects and teams.",
+    "ground_truth": "Yes. Hybrid work is available depending on the team requirements and project needs.",
+    "contexts": ["Yes. Hybrid work is available depending on the team requirements and project needs."]
+  },
+  {
+    "question": "Is hybrid work allowed?",
+    "answer": "Yes, hybrid operational structures are permitted depending on team and project environments.",
+    "ground_truth": "Hybrid work is available depending on the team requirements and project needs.",
+    "contexts": ["Yes. Hybrid work is available depending on the team requirements and project needs."]
+  },
+  {
+    "question": "Does everyone have to work from the office?",
+    "answer": "No, staff members can take advantage of hybrid working conditions based on team rules.",
+    "ground_truth": "Hybrid work is available depending on the team requirements and project needs.",
+    "contexts": ["Yes. Hybrid work is available depending on the team requirements and project needs."]
+  },
+  {
+    "question": "How many days can employees work remotely?",
+    "answer": "Staff members are allowed to work from home up to 3 days each week, provided they get approval.",
+    "ground_truth": "Employees can work remotely up to 3 days per week depending on approval from their team lead.",
+    "contexts": ["Employees can work remotely up to 3 days per week depending on approval from their team lead."]
+  },
+  {
+    "question": "Can I work from home 3 days a week?",
+    "answer": "Yes, you can work remotely for up to 3 days weekly with authorization from your team manager.",
+    "ground_truth": "Employees can work remotely up to 3 days per week depending on approval from their team lead.",
+    "contexts": ["Employees can work remotely up to 3 days per week depending on approval from their team lead."]
+  },
+  {
+    "question": "Who must approve remote work requests?",
+    "answer": "Your designated team lead must grant authorization for remote work days.",
+    "ground_truth": "depending on approval from their team lead.",
+    "contexts": ["Employees can work remotely up to 3 days per week depending on approval from their team lead."]
+  },
+  {
+    "question": "How many annual leave days are given?",
+    "answer": "Personnel are allocated 14 calendar days of paid annual vacation every year.",
+    "ground_truth": "Employees receive 14 annual leave days per year.",
+    "contexts": ["Employees receive 14 annual leave days per year."]
+  },
+  {
+    "question": "What is the yearly vacation allowance?",
+    "answer": "The yearly holiday entitlement is capped at exactly 14 days per employee.",
+    "ground_truth": "Employees receive 14 annual leave days per year.",
+    "contexts": ["Employees receive 14 annual leave days per year."]
+  },
+  {
+    "question": "Do employees get 14 days off annually?",
+    "answer": "Yes, the standard allocation for time off is 14 annual leave days annually.",
+    "ground_truth": "Employees receive 14 annual leave days per year.",
+    "contexts": ["Employees receive 14 annual leave days per year."]
+  },
+  {
+    "question": "Can unused annual leave days be carried forward?",
+    "answer": "Yes, you can roll over a restricted volume of unused time off to the subsequent year based on corporate policy.",
+    "ground_truth": "Yes. A limited number of unused annual leave days can be carried forward according to company policy.",
+    "contexts": ["Yes. A limited number of unused annual leave days can be carried forward according to company policy."]
+  },
+  {
+    "question": "Do unused vacation days expire at the end of the year?",
+    "answer": "Not all of them. A limited amount can be carried over in accordance with internal regulations.",
+    "ground_truth": "A limited number of unused annual leave days can be carried forward according to company policy.",
+    "contexts": ["Yes. A limited number of unused annual leave days can be carried forward according to company policy."]
+  },
+  {
+    "question": "Is it possible to roll over remaining holiday allocations?",
+    "answer": "Yes, partial carryover of unused vacation days is allowed via company guidelines.",
+    "ground_truth": "A limited number of unused annual leave days can be carried forward according to company policy.",
+    "contexts": ["Yes. A limited number of unused annual leave days can be carried forward according to company policy."]
+  },
+  {
+    "question": "Which programming languages are used?",
+    "answer": "The engineering ecosystem relies primarily on Python, Java, TypeScript, and Go.",
+    "ground_truth": "We mainly use Python, Java, TypeScript, and Go for software development.",
+    "contexts": ["We mainly use Python, Java, TypeScript, and Go for software development."]
+  },
+  {
+    "question": "Is Go language used in software development?",
+    "answer": "Yes, Go is one of the core programming languages utilized alongside Python, Java, and TypeScript.",
+    "ground_truth": "We mainly use Python, Java, TypeScript, and Go for software development.",
+    "contexts": ["We mainly use Python, Java, TypeScript, and Go for software development."]
+  },
+  {
+    "question": "What stack do software engineers use for programming?",
+    "answer": "The development teams primarily code in Python, Java, TypeScript, and Go.",
+    "ground_truth": "Python, Java, TypeScript, and Go",
+    "contexts": ["We mainly use Python, Java, TypeScript, and Go for software development."]
+  },
+  {
+    "question": "Which technologies are used for AI development?",
+    "answer": "The artificial intelligence systems leverage Python, Machine Learning libraries, vector repositories, LLMs, and cloud-hosted AI utilities.",
+    "ground_truth": "Our AI teams mainly use Python, Machine Learning frameworks, Large Language Models, vector databases, and cloud AI services.",
+    "contexts": ["Our AI teams mainly use Python, Machine Learning frameworks, Large Language Models, vector databases, and cloud AI services."]
+  },
+  {
+    "question": "Do the AI teams use vector databases?",
+    "answer": "Yes, vector databases are standard tools utilized within the AI department.",
+    "ground_truth": "Our AI teams mainly use Python, Machine Learning frameworks, Large Language Models, vector databases, and cloud AI services.",
+    "contexts": ["Our AI teams mainly use Python, Machine Learning frameworks, Large Language Models, vector databases, and cloud AI services."]
+  },
+  {
+    "question": "What frameworks are used by the AI department?",
+    "answer": "They work extensively with Machine Learning frameworks and Large Language Models.",
+    "ground_truth": "Python, Machine Learning frameworks, Large Language Models, vector databases, and cloud AI services.",
+    "contexts": ["Our AI teams mainly use Python, Machine Learning frameworks, Large Language Models, vector databases, and cloud AI services."]
+  },
+  {
+    "question": "Does the company provide training programs?",
+    "answer": "Yes, employees have access to structured technical courses, peer mentoring, and avenues to upskill in emerging technologies.",
+    "ground_truth": "Yes. The company provides technical training programs, mentorship, and opportunities to learn new technologies.",
+    "contexts": ["Does the company provide training programs? A: Yes. The company provides technical training programs, mentorship, and opportunities to learn new technologies."]
+  },
+  {
+    "question": "Are there mentorship opportunities?",
+    "answer": "Yes, professional mentorship is provided as part of the corporate internal training initiatives.",
+    "ground_truth": "The company provides technical training programs, mentorship, and opportunities to learn new technologies.",
+    "contexts": ["Yes. The company provides technical training programs, mentorship, and opportunities to learn new technologies."]
+  },
+  {
+    "question": "Can I learn new technologies at the company?",
+    "answer": "Yes, the company supports learning modern tools through specialized technical learning paths.",
+    "ground_truth": "opportunities to learn new technologies.",
+    "contexts": ["Yes. The company provides technical training programs, mentorship, and opportunities to learn new technologies."]
+  },
+  {
+    "question": "What departments are available in the company?",
+    "answer": "The organization features branches including Software Engineering, AI, DevOps, Quality Assurance, UI/UX, Product Management, and Support.",
+    "ground_truth": "The company has Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, UI/UX, Product Management, and Customer Support departments.",
+    "contexts": ["The company has Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, UI/UX, Product Management, and Customer Support departments."]
+  },
+  {
+    "question": "Is there a Product Management department?",
+    "answer": "Yes, Product Management operates alongside other tracks like Software Engineering and QA.",
+    "ground_truth": "The company has Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, UI/UX, Product Management, and Customer Support departments.",
+    "contexts": ["The company has Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, UI/UX, Product Management, and Customer Support departments."]
+  },
+  {
+    "question": "How many business departments exist at the firm?",
+    "answer": "There are distinct divisions like Software Engineering, AI, DevOps, QA, UI/UX, Product Management, and Support.",
+    "ground_truth": "Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, UI/UX, Product Management, and Customer Support",
+    "contexts": ["The company has Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, UI/UX, Product Management, and Customer Support departments."]
+  },
+  {
+    "question": "Is Python used for software engineering?",
+    "answer": "Yes, Python is heavily incorporated across development projects.",
+    "ground_truth": "We mainly use Python, Java, TypeScript, and Go for software development.",
+    "contexts": ["We mainly use Python, Java, TypeScript, and Go for software development."]
+  },
+  {
+    "question": "What is the location of the main corporate headquarters?",
+    "answer": "The focal office structure is stationed inside Colombo, Sri Lanka.",
+    "ground_truth": "Our headquarters is located in Colombo, Sri Lanka.",
+    "contexts": ["Our headquarters is located in Colombo, Sri Lanka."]
+  },
+  {
+    "question": "Does the engineering team build with Java?",
+    "answer": "Yes, Java is counted among the main core engineering languages.",
+    "ground_truth": "We mainly use Python, Java, TypeScript, and Go for software development.",
+    "contexts": ["We mainly use Python, Java, TypeScript, and Go for software development."]
+  },
+  {
+    "question": "What cloud systems are used by AI teams?",
+    "answer": "The artificial intelligence wing relies on standard cloud AI services.",
+    "ground_truth": "Our AI teams mainly use Python, Machine Learning frameworks, Large Language Models, vector databases, and cloud AI services.",
+    "contexts": ["Our AI teams mainly use Python, Machine Learning frameworks, Large Language Models, vector databases, and cloud AI services."]
+  },
+  {
+    "question": "Are there QA internships available?",
+    "answer": "Yes, Quality Assurance is explicitly listed among the targeted internship opportunities.",
+    "ground_truth": "We offer internships in Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, and UI/UX design.",
+    "contexts": ["We offer internships in Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, and UI/UX design."]
+  }
+]
+
