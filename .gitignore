@@ -1,0 +1,35 @@
+# Python environment directories
+env/
+ev_eval/
+eval_env/
+venv/
+.venv/
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Testing
+.pytest_cache/
+
+# IDE/editor files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Local database and runtime files
+vector_db/chroma.sqlite3
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*~
