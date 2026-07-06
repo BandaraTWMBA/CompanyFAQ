@@ -6,7 +6,7 @@ from embedding import embedding
 def load_faqs():
 
     with open(
-        "data/company_faqs.txt",
+        "my_rag_project/data/company_faqs.txt",
         "r",
         encoding="utf-8"
     ) as file:

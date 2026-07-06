@@ -1,0 +1,87 @@
+Q: What are your working hours?
+
+A: We operate Monday to Friday from 9 AM to 6 PM. Customer support is available during these hours.
+
+---
+
+Q: Where is the company located?
+
+A: Our headquarters is located in Colombo, Sri Lanka. We also have remote employees working from different locations.
+
+---
+
+Q: Do you offer internships?
+
+A: Yes. We offer internships in Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, and UI/UX design.
+
+---
+
+Q: How long do internships last?
+
+A: Our internship programs usually last for 6 months. The duration may vary depending on the department and project requirements.
+
+---
+
+Q: What are the requirements for internships?
+
+A: Applicants should have basic programming knowledge, problem-solving skills, and an interest in learning modern technologies.
+
+---
+
+Q: How can I contact support?
+
+A: You can contact our support team by sending an email to support@company.com.
+
+---
+
+Q: What is the support response time?
+
+A: The support team usually responds within 24 working hours.
+
+---
+
+Q: Can employees work remotely?
+
+A: Yes. Hybrid work is available depending on the team requirements and project needs.
+
+---
+
+Q: How many days can employees work remotely?
+
+A: Employees can work remotely up to 3 days per week depending on approval from their team lead.
+
+---
+
+Q: How many annual leave days are given?
+
+A: Employees receive 14 annual leave days per year.
+
+---
+
+Q: Can unused annual leave days be carried forward?
+
+A: Yes. A limited number of unused annual leave days can be carried forward according to company policy.
+
+---
+
+Q: Which programming languages are used?
+
+A: We mainly use Python, Java, TypeScript, and Go for software development.
+
+---
+
+Q: Which technologies are used for AI development?
+
+A: Our AI teams mainly use Python, Machine Learning frameworks, Large Language Models, vector databases, and cloud AI services.
+
+---
+
+Q: Does the company provide training programs?
+
+A: Yes. The company provides technical training programs, mentorship, and opportunities to learn new technologies.
+
+---
+
+Q: What departments are available in the company?
+
+A: The company has Software Engineering, Artificial Intelligence, DevOps, Quality Assurance, UI/UX, Product Management, and Customer Support departments.
