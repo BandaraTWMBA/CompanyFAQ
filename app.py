@@ -95,7 +95,7 @@ with st.sidebar:
     if selected_doc != "Default (FAQs & All Documents)":
         st.markdown("**Document Summary:**")
         try:
-            res = requests.get(f"{API_URL}/files/{selected_doc}/summary")
+            res = requests.get(f"{API_URL}/files_summary?file_name={selected_doc}")
             if res.status_code == 200:
                 summary_text = res.json().get("summary", "")
                 st.info(summary_text)

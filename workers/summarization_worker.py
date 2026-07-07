@@ -125,21 +125,20 @@ def process(message):
         print(f"Error processing file {file_name}: {e}")
 
 
-connection = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
-channel = connection.channel()
-channel.queue_declare(queue="ai_tasks")
+if __name__ == "__main__":
+    connection = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
+    channel = connection.channel()
+    channel.queue_declare(queue="ai_tasks")
 
+    def callback(ch, method, properties, body):
+        data = json.loads(body)
+        process(data)
 
-def callback(ch, method, properties, body):
-    data = json.loads(body)
-    process(data)
+    channel.basic_consume(
+        queue="ai_tasks",
+        on_message_callback=callback,
+        auto_ack=True
+    )
 
-
-channel.basic_consume(
-    queue="ai_tasks",
-    on_message_callback=callback,
-    auto_ack=True
-)
-
-print("Worker started")
-channel.start_consuming()
+    print("Worker started")
+    channel.start_consuming()

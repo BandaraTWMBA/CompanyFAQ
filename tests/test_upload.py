@@ -84,13 +84,13 @@ def test_get_file_summary_endpoint():
     summary_path.write_text("Short summarized version.", encoding="utf-8")
 
     try:
-        response = client.get(f"/files/{file_name}/summary")
+        response = client.get(f"/files_summary?file_name={file_name}")
         assert response.status_code == 200
         data = response.json()
         assert data["summary"] == "Short summarized version."
 
         # Test non-existent file
-        response_non_existent = client.get("/files/non_existent.txt/summary")
+        response_non_existent = client.get("/files_summary?file_name=non_existent.txt")
         assert response_non_existent.status_code == 200
         data_non_existent = response_non_existent.json()
         assert "background" in data_non_existent["summary"]
