@@ -48,6 +48,10 @@ class Response(BaseModel):
     answer: str
 
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the API!"}
+    
 @app.post("/chat", response_model=Response)
 def chat(req: Question):
     ans = answer(req.question, req.file_name)
@@ -129,13 +133,13 @@ def extract_text_from_upload(contents: bytes, filename: str) -> str:
 
 
 @app.post("/upload")
-def upload_files(files: List[UploadFile] = File(...)):
+async def upload_files(files: List[UploadFile] = File(...)):
     results = []
     for file in files:
         safe_name = Path(file.filename or "uploaded_file").name
         save_path = UPLOAD_DIR / safe_name
 
-        contents = file.file.read()
+        contents = await file.read()
         save_path.write_bytes(contents)
 
         # Publish background task to process the file (extract text, summarize, index in Chroma)

@@ -40,6 +40,32 @@ def extract_text_from_upload(contents: bytes, filename: str) -> str:
             text = "\n".join(page for page in pages if page).strip()
             if text:
                 return text
+
+            # If no text could be extracted, check for scanned images to perform OCR
+            print("pypdf returned no text. Attempting OCR on page images...")
+            try:
+                from rapidocr_onnxruntime import RapidOCR
+                from PIL import Image
+                
+                engine = RapidOCR()
+                ocr_pages = []
+                for idx, page in enumerate(reader.pages):
+                    page_text = []
+                    for img_obj in page.images:
+                        img = Image.open(BytesIO(img_obj.data))
+                        result, _ = engine(img)
+                        if result:
+                            page_text.append("\n".join([line[1] for line in result]))
+                    if page_text:
+                        ocr_pages.append("\n".join(page_text))
+                    else:
+                        ocr_pages.append("")
+                ocr_text = "\n".join(ocr_pages).strip()
+                if ocr_text:
+                    print("OCR extraction successful.")
+                    return ocr_text
+            except Exception as ocr_exc:
+                print(f"OCR extraction failed: {ocr_exc}")
         except Exception as exc:
             print(f"PDF extraction failed: {exc}")
 

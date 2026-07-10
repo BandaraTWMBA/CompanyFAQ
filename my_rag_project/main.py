@@ -30,12 +30,23 @@ Question:"""
     return question
 
 def _classify_query_intent(question):
-    prompt = f"""You are a query classifier routing agent for a company FAQ and document QA assistant.
-Classify the user's query into exactly one of the following categories:
-- GREETING: General conversational messages, greetings, social chit-chat (e.g. "hi", "hello", "thanks", "how are you").
-- FAQ: Questions about company rules, working hours, benefits, policies, office location, etc.
-- DOCUMENT: Questions about uploaded documents, PDFs, or files (e.g., "summarize this PDF", "what is written in sample.pdf", "read the text file").
-- OTHER: Out-of-scope or general knowledge questions not related to the company or any document.
+    from pathlib import Path
+    upload_dir = Path(__file__).resolve().parent.parent / "uploads"
+    uploaded_files = []
+    if upload_dir.exists():
+        for path in sorted(upload_dir.glob("*")):
+            if path.is_file():
+                name = path.name
+                if not name.endswith(".summary.txt") and not name.endswith(".content.txt"):
+                    uploaded_files.append(name)
+
+    prompt = f"""You are a query routing classifier. Classify the user query into one of the following categories:
+- GREETING: Conversational greetings, salutations, or chit-chat.
+- FAQ: Queries about general company policies, working hours, benefits, holidays, or office rules.
+- DOCUMENT: Specific questions about uploaded PDF, TXT, CSV, or JSON documents, or technical questions that require referring to the content of available uploaded documents.
+- OTHER: Only use this for queries clearly unrelated to the company or the available uploaded documents.
+
+Available Uploaded Documents: {uploaded_files}
 
 User Query: "{question}"
 
@@ -122,15 +133,26 @@ Grounded:"""
 
 
 def agent_executor(question):
+    from pathlib import Path
+    upload_dir = Path(__file__).resolve().parent.parent / "uploads"
+    uploaded_files = []
+    if upload_dir.exists():
+        for path in sorted(upload_dir.glob("*")):
+            if path.is_file():
+                name = path.name
+                if not name.endswith(".summary.txt") and not name.endswith(".content.txt"):
+                    uploaded_files.append(name)
+
     context = ""
     history = []
 
-    # Run up to 2 turns
-    for turn in range(2):
+    # Run up to 3 turns
+    for turn in range(3):
         prompt = f"""You are an assistant. Answer the question using context or tools.
 Available Tools:
-- Search_FAQ(query): Search company policies, working hours, benefits, and general databases.
-- Rewrite_Query(query): Rewrite a vague question for better searching.
+- Search_FAQ(query): Search general FAQ database.
+- Search_Document(query, file_name): Search content from a specific uploaded document. Available documents are: {uploaded_files}
+- Rewrite_Query(query): ONLY use this if you have already performed a search and retrieved irrelevant context. Do NOT call this on the first turn.
 
 History:
 {chr(10).join(history)}
@@ -142,11 +164,14 @@ User Question: {question}
 
 To call a tool, output exactly: TOOL: <ToolName>(<arguments>)
 Example: TOOL: Search_FAQ(working hours)
+Example: TOOL: Search_Document(des security, Improving DES Security.pdf)
 
 To answer the question, output exactly: ANSWER: <your answer>
 Example: ANSWER: Our working hours are 9 AM to 5 PM.
 
-IMPORTANT: Always search the database first using Search_FAQ before deciding to rewrite queries.
+IMPORTANT RULES:
+1. You MUST call Search_FAQ or Search_Document on your FIRST turn. Do NOT call Rewrite_Query on Turn 1.
+2. Only call Rewrite_Query if you have already searched and the retrieved context was not relevant.
 
 What is your next action? Output ONLY one line starting with TOOL: or ANSWER:."""
 
@@ -183,26 +208,44 @@ Answer:"""
             tool_call = response.replace("TOOL:", "").strip()
             match = re.match(r"(\w+)\((.*)\)", tool_call)
             if match:
-                tool_name, tool_arg = match.groups()
-                tool_arg = tool_arg.strip()
+                tool_name, tool_args_str = match.groups()
+                tool_args_str = tool_args_str.strip()
 
                 if tool_name == "Search_FAQ":
-                    result = search_faq(tool_arg)
-                    
+                    result = search_faq(tool_args_str)
                     # Relevance Check
-                    if not check_context_relevance(tool_arg, result):
-                        print(f"Context retrieved for '{tool_arg}' flagged as irrelevant. Rewriting query...")
-                        rewritten = rewrite_query(tool_arg)
+                    if not check_context_relevance(tool_args_str, result):
+                        print(f"Context retrieved for '{tool_args_str}' flagged as irrelevant. Rewriting query...")
+                        rewritten = rewrite_query(tool_args_str)
                         result = search_faq(rewritten)
-                        history.append(f"Action: Call Search_FAQ('{tool_arg}') -> Result: Context irrelevant. Rewrote to '{rewritten}' and searched again.")
+                        history.append(f"Action: Call Search_FAQ('{tool_args_str}') -> Result: Context irrelevant. Rewrote to '{rewritten}' and searched again.")
                     else:
-                        history.append(f"Action: Call Search_FAQ('{tool_arg}') -> Result: Found relevant FAQ information.")
-                        
-                    context += f"\n[FAQ Context for search '{tool_arg}']:\n{result}\n"
+                        history.append(f"Action: Call Search_FAQ('{tool_args_str}') -> Result: Found relevant FAQ information.")
+                    context += f"\n[FAQ Context for search '{tool_args_str}']:\n{result}\n"
+
+                elif tool_name == "Search_Document":
+                    parts = [p.strip().strip("'\"") for p in tool_args_str.split(",")]
+                    if len(parts) >= 2:
+                        t_query = parts[0]
+                        t_file = parts[1]
+                        result = search_document(t_query, t_file)
+                        # Relevance Check
+                        if not check_context_relevance(t_query, result):
+                            print(f"Context retrieved for '{t_query}' from '{t_file}' flagged as irrelevant. Rewriting query...")
+                            rewritten = rewrite_query(t_query)
+                            result = search_document(rewritten, t_file)
+                            history.append(f"Action: Call Search_Document('{t_query}', '{t_file}') -> Result: Context irrelevant. Rewrote to '{rewritten}' and searched again.")
+                        else:
+                            history.append(f"Action: Call Search_Document('{t_query}', '{t_file}') -> Result: Found relevant document information.")
+                        context += f"\n[Document Context '{t_file}' for search '{t_query}']:\n{result}\n"
+                    else:
+                        context += f"\n[Error: Search_Document requires query and file_name arguments]\n"
+                        history.append("Action: Search_Document argument error.")
+
                 elif tool_name == "Rewrite_Query":
-                    rewritten = rewrite_query(tool_arg)
-                    context += f"\n[Rewrite]: Query rewritten from '{tool_arg}' to '{rewritten}'\n"
-                    history.append(f"Action: Call Rewrite_Query('{tool_arg}') -> Result: '{rewritten}'")
+                    rewritten = rewrite_query(tool_args_str)
+                    context += f"\n[Rewrite]: Query rewritten from '{tool_args_str}' to '{rewritten}'\n"
+                    history.append(f"Action: Call Rewrite_Query('{tool_args_str}') -> Result: '{rewritten}'")
                     question = rewritten
                 else:
                     context += f"\n[Error: Unknown tool '{tool_name}']\n"
@@ -251,27 +294,52 @@ def answer(question, file_name=None):
         add_message("Assistant", response)
         return response
 
-    # Call our sync tool from the other file
     sync_uploads_to_vector_db()
 
-    # Reformulate question based on history (Context-Aware Memory)
+    # Check original question intent first to handle greetings early
+    original_intent = _classify_query_intent(question)
+    if original_intent == "GREETING":
+        prompt = f"Respond politely and conversationally to the user's greeting/chit-chat:\n\nUser: {question}\nResponse:"
+        try:
+            response = ask_llm(prompt).strip()
+        except Exception as e:
+            response = f"Hello! How can I help you today? (LLM error: {str(e)})"
+
+        add_message("User", question)
+        add_message("Assistant", response)
+        return response
+
+    # Reformulate FIRST, so vague follow-ups ("what does it say about leave?")
+    # are resolved into clear, searchable questions before anything else happens.
     original_question = question
     question = reformulate_question_with_memory(question, history)
     if question != original_question:
         print(f"Reformulated query from conversational context: '{original_question}' -> '{question}'")
 
-    # Route logic
+    # If a specific document was selected, ALWAYS answer from that document.
+    # Skip intent classification here — it should never be able to hijack
+    # an explicit document request.
     if file_name and file_name != "Default (FAQs & All Documents)":
-        # Direct document QA pathway (bypasses agent loop for fast, exact document lookup)
         try:
             results = db.similarity_search(question, k=4, filter={"source": file_name})
-            if results:
-                context = "\n\n".join([doc.page_content for doc in results])
-            else:
-                context = ""
+            context = "\n\n".join([doc.page_content for doc in results]) if results else ""
         except Exception as e:
             print(f"Error querying Chroma: {e}")
+            # Fallback diagnostic: run an unfiltered query on the same collection
+            # to check whether the index itself is broken (e.g. "Error finding id"),
+            # versus the file simply having no matching metadata.
             context = ""
+            try:
+                probe = db.similarity_search(question, k=4)
+                probe_sources = {d.metadata.get("source") for d in probe}
+                print(f"[DEBUG] Unfiltered query succeeded. Sources found: {probe_sources}. "
+                      f"If '{file_name}' is not in this set, check metadata key/value used during sync. "
+                      f"If unfiltered query also fails, the Chroma index is corrupted and needs a rebuild.")
+            except Exception as e2:
+                print(f"[DEBUG] Unfiltered probe also failed: {e2}")
+                print("[ACTION REQUIRED] Chroma collection appears corrupted (index/id mismatch). "
+                      "Delete the Chroma persist directory and re-run sync_uploads_to_vector_db() "
+                      "to rebuild the collection from scratch.")
 
         if context:
             prompt = f"""You are a helpful assistant. Use the following context from the document "{file_name}" to answer the user's question.
@@ -284,7 +352,6 @@ Question: {question}
 Answer:"""
             try:
                 response = ask_llm(prompt).strip()
-                # Audit answer for direct document QA path
                 if not audit_answer(question, context, response):
                     print("Auditor flagged direct document QA answer! Regenerating with strict constraint...")
                     strict_prompt = f"""You are a helpful assistant. Use the following context from the document "{file_name}" to answer the user's question.
@@ -300,20 +367,20 @@ Answer:"""
                 response = f"Error querying LLM: {str(e)}"
         else:
             response = "I don't have information about that."
-    else:
-        intent = _classify_query_intent(question)
-        print(f"Query: '{question}' routed to: {intent}")
 
-        if intent == "GREETING":
-            prompt = f"Respond politely and conversationally to the user's greeting/chit-chat:\n\nUser: {question}\nResponse:"
-            try:
-                response = ask_llm(prompt).strip()
-            except Exception as e:
-                response = f"Hello! How can I help you today? (LLM error: {str(e)})"
-        elif intent == "OTHER":
-            response = "I can only answer questions related to the company FAQs or your uploaded documents. Please ask a relevant question."
-        else:
-            response = agent_executor(question)
+        add_message("User", question)
+        add_message("Assistant", response)
+        return response
+
+    # "Default (FAQs & All Documents)" mode — classify ONCE, on the
+    # already-reformulated (clear) question.
+    intent = _classify_query_intent(question)
+    print(f"Query: '{question}' routed to: {intent}")
+
+    if intent == "OTHER":
+        response = "I can only answer questions related to the company FAQs or your uploaded documents. Please ask a relevant question."
+    else:
+        response = agent_executor(question)
 
     add_message("User", question)
     add_message("Assistant", response)
