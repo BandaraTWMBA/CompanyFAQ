@@ -166,12 +166,22 @@ async def stream_answer(question: str, file_name: str = None):
         answer_text = answer(question, file_name)
 
         for word in answer_text.split():
-            yield {"data": str(word)}  # ensure string format for SSE
-            await asyncio.sleep(3)
+            yield {
+                "event": "message",
+                "data": word + " "
+            }
+            await asyncio.sleep(0.03)
 
-        yield {"event": "done", "data": ""}  # signal completion to the client
+        yield {"event": "done", "data": "DONE"}  # signal completion to the client
 
-    return EventSourceResponse(event_generator())
+    return EventSourceResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+        },
+    )
 
 
 def custom_openapi():

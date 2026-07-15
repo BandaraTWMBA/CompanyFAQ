@@ -1,0 +1,71 @@
+Fundamentals of Machine Learning
+A Core Summary of Paradigms, Concepts, and Metrics
+1. What is Machine Learning?
+Machine Learning (ML) is a subfield of artificial intelligence focused on building systems that learn from data,
+identify patterns, and make decisions with minimal human intervention. Rather than hardcoding explicit rules,
+ML algorithms use statistical methods to optimize performance dynamically over time.
+The Core Objective: The primary goal of an ML model is to generalize well to new, unseen datasets,
+avoiding both underfitting (oversimplification) and overfitting (memorization of noise).
+2. Primary Paradigms of Learning
+Machine learning problems are broadly categorized into three core paradigms based on the nature of the
+learning signal:
+Supervised Learning: The model trains on labeled data consisting of input-output pairs (x, y). The goal is
+to learn a mapping function f(x) = y. 
+Regression: Predicting continuous numerical values (e.g., housing prices).
+Classification: Predicting discrete categorical classes (e.g., distinguishing spam from legitimate email).
+Unsupervised Learning: The model encounters unlabeled training data (x) and must uncover hidden
+structures or relationships autonomously. 
+Clustering: Grouping data points by geometric or statistical proximity (e.g., K-Means).
+Dimensionality Reduction: Simplifying the feature space while retaining crucial variance (e.g., Principal
+Component Analysis).
+Reinforcement Learning (RL): An autonomous agent learns to maximize cumulative rewards by
+interacting dynamically with an environment through continuous trial and error.
+3. The Bias-Variance Tradeoff
+Achieving structural balance in predictive modeling requires managing two distinct sources of error:
+Bias: Error caused by overly simplistic assumptions in the learning algorithm. High bias leads to underfitting,
+where the model fails to capture the underlying trend of the data.
+Variance: Error arising from extreme sensitivity to small fluctuations in the training dataset. High variance
+leads to overfitting, where the model performs exceptionally on training data but fails to generalize to test
+data.
+• 
+◦ 
+◦ 
+• 
+◦ 
+◦ 
+• 
+Machine Learning Fundamentals • Quick Reference Guide 1
+Total Error = Bias2 + Variance + Irreducible Error
+4. Core Evaluation Metrics
+Choosing the correct validation metric prevents false conclusions regarding model efficacy. The selection
+depends fully on the task type:
+Classification Metrics
+For discrete predictions, metrics are derived from the Confusion Matrix comprising True Positives (TP), False
+Positives (FP), True Negatives (TN), and False Negatives (FN).
+Metric Mathematical RepresentationPrimary Use Case Target
+Accuracy (TP + TN) / (TP + TN + FP + FN)Symmetric datasets with balanced class
+frequencies.
+Precision TP / (TP + FP) Minimizing false positives (e.g., spam filter
+precision).
+Recall
+(Sensitivity) TP / (TP + FN) Minimizing false negatives (e.g., medical
+diagnoses).
+F1-Score 2 × (Precision × Recall) / (Precision +
+Recall)
+Imbalanced classes requiring a balanced
+harmonic mean.
+Regression Metrics
+For predicting continuous values, models measure distances between actual targets yi and predictions ŷi:
+Mean Absolute Error (MAE): Simple average of absolute error distances; robust against outliers.
+Mean Squared Error (MSE): Heavily penalizes larger errors due to squaring operations.
+5. Key Regularization Techniques
+To curb overfitting and control high variance, regularization penalties are added directly to the loss function:
+L1 Regularization (Lasso): Adds an absolute value penalty proportional to the coefficients. It enforces
+feature sparsity, driving unhelpful weights completely to zero.
+L2 Regularization (Ridge): Adds a squared magnitude penalty to the coefficients. It diffuses weights
+evenly, keeping values small but non-zero.
+• 
+• 
+• 
+• 
+Machine Learning Fundamentals • Quick Reference Guide 2

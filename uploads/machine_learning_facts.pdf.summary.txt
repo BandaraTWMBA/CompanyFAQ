@@ -1,0 +1,3 @@
+Here is a brief one-sentence summary of the document content:
+
+Machine learning is a subfield of artificial intelligence that focuses on building systems that learn from data and make decisions with minimal human intervention, aiming to achieve generalization and avoid underfitting and overfitting.

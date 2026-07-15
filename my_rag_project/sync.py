@@ -101,7 +101,7 @@ def sync_uploads_to_vector_db():
         # Check if already indexed specifically using where filter
         try:
             existing = db.get(where={"source": file_name})
-            if existing and existing.get("ids"):
+            if existing and len(existing.get("ids", [])) > 0:
                 continue
         except Exception:
             pass

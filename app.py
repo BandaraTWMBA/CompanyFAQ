@@ -1,4 +1,5 @@
 import requests
+import sseclient
 import streamlit as st
 
 # ----------------------------------------
@@ -170,67 +171,53 @@ if question:
 
     )
 
-    # Call backend
+    # Call backend via streaming /stream endpoint
+
+    answer_text = ""
 
     try:
 
-        with st.spinner("Thinking..."):
+        with st.chat_message("assistant"):
 
-            response = requests.post(
+            placeholder = st.empty()
 
-                f"{API_URL}/chat",
+            try:
 
-                json={
-                    "question": question,
-                    "file_name": selected_doc
-                }
+                response = requests.get(
 
-            )
+                    f"{API_URL}/stream",
 
-        if response.status_code == 200:
+                    params={
+                        "question": question,
+                        "file_name": selected_doc
+                    },
 
-            result = response.json()
+                    stream=True,
 
-            answer = result.get("answer", "")
+                )
 
-            confidence = result.get("confidence", None)
+                client = sseclient.SSEClient(response)
 
-            score = result.get("score", None)
+                for event in client.events():
 
-            with st.chat_message("assistant"):
+                    if event.event == "done":
+                        break
 
-                st.write(answer)
+                    answer_text += event.data
+                    placeholder.markdown(answer_text)
 
-                if confidence:
+            except requests.exceptions.ConnectionError:
 
-                    st.caption(
-                        f"Confidence : {confidence}"
-                    )
+                st.error("❌ Cannot connect to FastAPI server.")
 
-                if score is not None:
+        st.session_state.messages.append(
 
-                    st.caption(
-                        f"Retrieval Score : {score:.3f}"
-                    )
+            {
+                "role": "assistant",
+                "content": answer_text
+            }
 
-                    st.progress(float(score))
-
-            st.session_state.messages.append(
-
-                {
-                    "role": "assistant",
-                    "content": answer
-                }
-
-            )
-
-        else:
-
-            st.error("Backend returned an error.")
-
-    except requests.exceptions.ConnectionError:
-
-        st.error("❌ Cannot connect to FastAPI server.")
+        )
 
     except Exception as e:
 
